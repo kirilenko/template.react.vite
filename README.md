@@ -10,15 +10,38 @@ React SPA template powered by Vite.
 - [Tailwind CSS 4](https://tailwindcss.com)
 - [ESLint 9](https://eslint.org) + [Prettier 3](https://prettier.io)
 
+## Setup
+
+Requires [direnv](https://direnv.net). On first use:
+
+```bash
+direnv allow        # loads .nvmrc and enables corepack
+pnpm install
+scripts/sync-ports.sh  # generates .env.ports.local from ../../ports.yml
+```
+
 ## Commands
 
 ```bash
-npm run dev      # dev server
-npm run build    # type-check + production build
-npm run preview  # preview production build
-npm run lint     # lint
-npm run format   # format
+pnpm dev      # dev server
+pnpm build    # type-check + production build
+pnpm preview  # preview production build
+pnpm lint     # lint
+pnpm format   # format
 ```
+
+## Ports
+
+Ports are defined in `ports.yml` at the monorepo root and generated into `.env.ports.local` (gitignored) by `scripts/sync-ports.sh`. Vite reads `PORT` from that file at startup.
+
+To add this project to the registry, add an entry to `ports.yml`:
+
+```yaml
+your-project-name:
+  vite: 5183
+```
+
+Then run `scripts/sync-ports.sh`.
 
 ## Conventions
 
