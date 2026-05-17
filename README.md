@@ -9,6 +9,7 @@ React SPA template powered by Vite.
 - [Vite 6](https://vite.dev)
 - [Tailwind CSS 4](https://tailwindcss.com)
 - [ESLint 9](https://eslint.org) + [Prettier 3](https://prettier.io)
+- [Vitest 4](https://vitest.dev) + [Testing Library](https://testing-library.com)
 
 ## Setup
 
@@ -26,8 +27,10 @@ scripts/sync-ports.sh  # generates .env.ports.local from ../../ports.yml
 pnpm dev      # dev server
 pnpm build    # type-check + production build
 pnpm preview  # preview production build
-pnpm lint     # lint
-pnpm format   # format
+pnpm test         # run tests once
+pnpm test:watch   # run tests in watch mode
+pnpm lint         # lint + format
+pnpm format       # format only
 ```
 
 ## Ports
