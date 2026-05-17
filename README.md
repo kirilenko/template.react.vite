@@ -12,11 +12,11 @@ React SPA template powered by Vite.
 
 ## Setup
 
-Requires [direnv](https://direnv.net). On first use:
+Requires [direnv](https://direnv.net) and [nvm](https://github.com/nvm-sh/nvm). On first use:
 
 ```bash
-direnv allow        # loads .nvmrc and enables corepack
-pnpm install
+pnpm setup             # installs correct node + pnpm versions, runs pnpm install
+direnv allow           # enables auto-loading .nvmrc and corepack on directory entry
 scripts/sync-ports.sh  # generates .env.ports.local from ../../ports.yml
 ```
 
