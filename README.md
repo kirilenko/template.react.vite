@@ -1,5 +1,7 @@
 # template.react.vite
 
+[![CI](https://github.com/kirilenko/template.react.vite/actions/workflows/ci.yml/badge.svg)](https://github.com/kirilenko/template.react.vite/actions/workflows/ci.yml)
+
 React SPA template powered by Vite.
 
 ## Stack
