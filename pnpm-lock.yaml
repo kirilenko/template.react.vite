@@ -36,8 +36,8 @@ importers:
         specifier: ^9.27.0
         version: 9.39.4(jiti@2.7.0)
       eslint-config-k8:
-        specifier: ^1.5.1
-        version: 1.5.1(@eslint/js@9.39.4)(eslint-import-resolver-typescript@4.4.4)(eslint-plugin-hooks@0.4.3)(eslint-plugin-import@2.32.0)(eslint-plugin-react-hooks@7.1.1(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-react-refresh@0.4.26(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-react@7.37.5(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-simple-import-sort@13.0.0(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-sort-keys-fix@1.1.2)(eslint@9.39.4(jiti@2.7.0))(globals@17.6.0)(typescript-eslint@8.59.3(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3))
+        specifier: ^1.5.2
+        version: 1.5.2(@eslint/js@9.39.4)(eslint-import-resolver-typescript@4.4.4)(eslint-plugin-hooks@0.4.3)(eslint-plugin-import@2.32.0)(eslint-plugin-react-hooks@7.1.1(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-react-refresh@0.4.26(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-react@7.37.5(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-simple-import-sort@13.0.0(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-sort-keys-fix@1.1.2)(eslint@9.39.4(jiti@2.7.0))(globals@17.6.0)(typescript-eslint@8.59.3(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3))
       eslint-import-resolver-typescript:
         specifier: ^4.4.4
         version: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.39.4(jiti@2.7.0))
@@ -1692,10 +1692,10 @@ packages:
       }
     engines: { node: '>=10' }
 
-  eslint-config-k8@1.5.1:
+  eslint-config-k8@1.5.2:
     resolution:
       {
-        integrity: sha512-UrIiupMbo3Frb2JimDt2GS4zkL8JlAlPzjjUcZUqc6z9NbDxr/i4jblZYJLNKgp7ATr7fTHElWN5EW6qhNxSAw==,
+        integrity: sha512-qCfthzdUk02UTQs1FS+RfXyLs/DvFIxb9d5jXZRGxH9y3QyLa7siHjXnHfApzoypWEvRzEVziHzQyyX3FIp7zg==,
       }
     peerDependencies:
       '@eslint/js': '>=9.36.0'
@@ -4349,7 +4349,7 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-k8@1.5.1(@eslint/js@9.39.4)(eslint-import-resolver-typescript@4.4.4)(eslint-plugin-hooks@0.4.3)(eslint-plugin-import@2.32.0)(eslint-plugin-react-hooks@7.1.1(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-react-refresh@0.4.26(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-react@7.37.5(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-simple-import-sort@13.0.0(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-sort-keys-fix@1.1.2)(eslint@9.39.4(jiti@2.7.0))(globals@17.6.0)(typescript-eslint@8.59.3(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3)):
+  eslint-config-k8@1.5.2(@eslint/js@9.39.4)(eslint-import-resolver-typescript@4.4.4)(eslint-plugin-hooks@0.4.3)(eslint-plugin-import@2.32.0)(eslint-plugin-react-hooks@7.1.1(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-react-refresh@0.4.26(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-react@7.37.5(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-simple-import-sort@13.0.0(eslint@9.39.4(jiti@2.7.0)))(eslint-plugin-sort-keys-fix@1.1.2)(eslint@9.39.4(jiti@2.7.0))(globals@17.6.0)(typescript-eslint@8.59.3(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3)):
     dependencies:
       '@eslint/js': 9.39.4
       eslint: 9.39.4(jiti@2.7.0)

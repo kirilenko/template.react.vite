@@ -27,7 +27,7 @@
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.5.2",
     "eslint": "^9.27.0",
-    "eslint-config-k8": "^1.5.1",
+    "eslint-config-k8": "^1.5.2",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-hooks": "^0.4.3",
     "eslint-plugin-import": "^2.32.0",
