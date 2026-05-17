@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react'
 import { existsSync, readFileSync } from 'node:fs'
+import { defineConfig } from 'vite'
 
 function loadPortsLocal(): Record<string, string> {
   if (!existsSync('.env.ports.local')) return {}
