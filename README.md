@@ -43,6 +43,14 @@ your-project-name:
 
 Then run `scripts/sync-ports.sh`.
 
+## SEO
+
+Search engine indexing is **disabled by default** — `public/robots.txt` and the `<meta name="robots">` tag in `index.html` both set `noindex, nofollow`.
+
+For a public production site, remove both:
+- `public/robots.txt` — replace `Disallow: /` with `Disallow:`
+- `index.html` — remove the `<meta name="robots" ...>` line
+
 ## Conventions
 
 - **Filenames** — lowercase only (`app.tsx`, not `App.tsx`)
