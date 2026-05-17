@@ -31,7 +31,7 @@ pnpm build    # type-check + production build
 pnpm preview  # preview production build
 pnpm test         # run tests once
 pnpm test:watch   # run tests in watch mode
-pnpm lint         # lint + format
+pnpm lint         # type-check + lint + format
 pnpm format       # format only
 ```
 
