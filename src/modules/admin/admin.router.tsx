@@ -1,14 +1,14 @@
 import type { AppRouteObject } from '@/libs/router'
 import type { AuthState } from '@/services/auth'
 
-import { Profile } from './profile.page'
+import { AdminPage } from './admin.page'
 
-export const profileRouter: AppRouteObject = {
+export const adminRouter: AppRouteObject = {
   access: (auth) => {
     const { isAuthenticated, role } = auth as AuthState
     if (!isAuthenticated) return false
-    return role === 'user' || '/'
+    return role === 'admin' || '/'
   },
-  element: <Profile />,
-  path: 'profile',
+  element: <AdminPage />,
+  path: 'admin',
 }
