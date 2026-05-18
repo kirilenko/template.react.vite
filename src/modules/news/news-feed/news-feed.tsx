@@ -1,6 +1,7 @@
 import type { JSX } from 'react'
 
-import { useNewsReading } from '../../../services/news'
+import { useNewsReading } from '@/services/news'
+
 import { NewsCard } from './news-card'
 
 interface NewsFeedProps {

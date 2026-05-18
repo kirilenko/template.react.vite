@@ -1,6 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { existsSync, readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 
 function loadPortsLocal(): Record<string, string> {
@@ -17,6 +18,9 @@ const portsEnv = loadPortsLocal()
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: { '@': resolve(__dirname, 'src') },
+  },
   server: {
     port: parseInt(portsEnv.PORT ?? process.env.PORT ?? '5173'),
   },
