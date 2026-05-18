@@ -9,6 +9,7 @@ React SPA template powered by Vite.
 - [React 19](https://react.dev)
 - [TypeScript 5](https://www.typescriptlang.org)
 - [Vite 6](https://vite.dev)
+- [React Router 7](https://reactrouter.com)
 - [Tailwind CSS 4](https://tailwindcss.com)
 - [ESLint 9](https://eslint.org) + [Prettier 3](https://prettier.io)
 - [Vitest 4](https://vitest.dev) + [Testing Library](https://testing-library.com)
@@ -56,6 +57,48 @@ For a public production site, remove both:
 
 - `public/robots.txt` — replace `Disallow: /` with `Disallow:`
 - `index.html` — remove the `<meta name="robots" ...>` line
+
+## Architecture
+
+```
+src/
+├── app/                        # app entry point
+│   ├── app.tsx                 # router (createBrowserRouter)
+│   ├── app.test.tsx
+│   ├── index.ts
+│   └── layout/                 # root layout; add header/, sidebar/ here as needed
+│       ├── layout.tsx
+│       └── index.ts
+├── modules/                    # feature modules
+│   └── news/                   # one folder per feature
+│       ├── index.ts            # public API — only what's listed here is visible outside
+│       ├── news.tsx            # page component; assembles sub-components
+│       ├── news-feed/          # folder structure mirrors component tree on screen
+│       │   ├── news-feed.tsx
+│       │   ├── index.ts
+│       │   └── news-card/
+│       │       ├── news-card.tsx
+│       │       └── index.ts
+│       ├── news-filters/
+│       │   ├── news-filters.tsx
+│       │   └── index.ts
+│       └── news-search/
+│           ├── news-search.tsx
+│           └── index.ts
+├── services/                   # data layer
+│   └── news/
+│       ├── index.ts
+│       ├── news.schema.ts      # data model (ready for valibot/zod parser)
+│       └── use.news.reading.ts # useNewsReading — name reflects the operation
+└── main.tsx                    # vite entry point
+```
+
+**Key rules:**
+
+- **Named exports only** — no `export default`; renames are caught by TypeScript and the IDE
+- **`index.ts` as public API** — every folder exposes only what's listed in its `index.ts`; files that grow sideways (tests, mocks, utils) stay private
+- **Types co-located** — types live next to the component that owns them; parents may import from children, siblings don't import from each other
+- **Services are shared** — hooks and schemas in `services/` can be used by any module; hook filenames follow `use.{entity}.{operation}.ts`
 
 ## Conventions
 
