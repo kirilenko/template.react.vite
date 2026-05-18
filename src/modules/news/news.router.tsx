@@ -1,8 +1,8 @@
-import type { RouteObject } from 'react-router'
+import type { AppRouteObject } from '@/libs/router'
 
 import { News } from './news.page'
 
-export const newsRouter: RouteObject = {
+export const newsRouter: AppRouteObject = {
   element: <News />,
   path: 'news',
 }
