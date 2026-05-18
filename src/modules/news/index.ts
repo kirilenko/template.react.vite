@@ -1,1 +1,1 @@
-export { News } from './news.page'
+export { newsRouter } from './news.router'

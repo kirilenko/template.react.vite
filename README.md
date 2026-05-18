@@ -63,7 +63,8 @@ For a public production site, remove both:
 ```
 src/
 ├── app/                        # app entry point
-│   ├── app.tsx                 # router (createBrowserRouter)
+│   ├── app.tsx                 # renders RouterProvider
+│   ├── app.router.tsx          # composes module routers into createBrowserRouter
 │   ├── app.test.tsx
 │   ├── index.ts
 │   └── layout/                 # root layout; add header/, sidebar/ here as needed
@@ -72,7 +73,8 @@ src/
 ├── modules/                    # feature modules
 │   └── news/                   # one folder per feature
 │       ├── index.ts            # public API — only what's listed here is visible outside
-│       ├── news.tsx            # page component; assembles sub-components
+│       ├── news.page.tsx       # route entry point; assembles sub-components (private)
+│       ├── news.router.tsx     # RouteObject for this module; exported via index.ts
 │       ├── news-feed/          # folder structure mirrors component tree on screen
 │       │   ├── news-feed.tsx
 │       │   ├── index.ts
@@ -99,6 +101,8 @@ src/
 - **`index.ts` as public API** — every folder exposes only what's listed in its `index.ts`; files that grow sideways (tests, mocks, utils) stay private
 - **Types co-located** — types live next to the component that owns them; parents may import from children, siblings don't import from each other
 - **Services are shared** — hooks and schemas in `services/` can be used by any module; hook filenames follow `use.{entity}.{operation}.ts`
+- **`.page.tsx`** — route entry point of a module; private, not exported from `index.ts`
+- **`.router.tsx`** — declares the module's `RouteObject`; the only routing-related export; composed in `app.router.tsx`
 
 ## Conventions
 

@@ -1,1 +1,1 @@
-export { Home } from './home.page'
+export { homeRouter } from './home.router'
