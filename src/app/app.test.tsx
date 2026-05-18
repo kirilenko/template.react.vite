@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import App from './app.tsx'
+import { App } from './app'
 
 describe('App', () => {
   it('renders', () => {
