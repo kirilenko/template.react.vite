@@ -5,6 +5,8 @@ on:
   pull_request:
     branches:
       - main
+      - stage
+      - dev
 
 permissions:
   contents: read
