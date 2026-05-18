@@ -1,16 +1,8 @@
 import type { JSX, ReactNode } from 'react'
-import { createContext, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 
+import { AuthContext } from './auth.context'
 import type { AuthRole } from './auth.schema'
-
-interface AuthContextValue {
-  isAuthenticated: boolean
-  role: AuthRole | null
-  login: (role: AuthRole) => void
-  logout: () => void
-}
-
-export const AuthContext = createContext<AuthContextValue | null>(null)
 
 const STORAGE_KEY = 'auth'
 
