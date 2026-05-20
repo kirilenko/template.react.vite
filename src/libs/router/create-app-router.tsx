@@ -11,8 +11,8 @@ function applyGuards(routes: AppRouteObject[]): RouteObject[] {
     const processedChildren = children ? applyGuards(children) : undefined
 
     const element =
-      suspense !== undefined && route.element ? (
-        <Suspense fallback={suspense}>{route.element}</Suspense>
+      suspense && route.element ? (
+        <Suspense fallback={null}>{route.element}</Suspense>
       ) : (
         route.element
       )

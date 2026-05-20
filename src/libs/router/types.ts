@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import type { RouteObject } from 'react-router'
 
 export type RouteAccess =
@@ -10,7 +9,7 @@ export type RouteAccess =
 export interface AppRouteObject extends Omit<RouteObject, 'children'> {
   access?: RouteAccess
   children?: AppRouteObject[]
-  suspense?: ReactNode
+  suspense?: boolean
 }
 
 export interface RouterConfig {

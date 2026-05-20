@@ -13,5 +13,5 @@ export const adminRouter: AppRouteObject = {
   },
   element: <AdminPage />,
   path: 'admin',
-  suspense: null,
+  suspense: true,
 }
