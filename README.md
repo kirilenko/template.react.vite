@@ -6,7 +6,7 @@ React SPA template powered by Vite.
 
 ## Stack
 
-- [React 19](https://react.dev)
+- [React 19](https://react.dev) + [React Compiler](https://react.dev/learn/react-compiler)
 - [TypeScript 5](https://www.typescriptlang.org)
 - [Vite 6](https://vite.dev)
 - [React Router 7](https://reactrouter.com)
