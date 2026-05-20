@@ -1,2 +1,3 @@
+export { useNewsDetailReading } from './use.news-detail.reading'
 export { useNewsReading } from './use.news.reading'
-export { type NewsItem } from './news.schema'
+export { type NewsDetail, type NewsItem } from './news.schema'

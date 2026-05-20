@@ -1,12 +1,21 @@
 import type { JSX } from 'react'
 import { useParams } from 'react-router'
 
+import { useNewsDetailReading } from '@/services/news'
+
 export function NewsDetail(): JSX.Element {
   const { id } = useParams()
+  const { detail } = useNewsDetailReading(Number(id))
+
+  if (!detail) return <p className="text-gray-400">News not found.</p>
 
   return (
-    <div className="mt-8 p-4 border rounded">
-      <h2 className="text-xl font-bold">News #{id}</h2>
+    <div className="space-y-4">
+      <h2 className="text-xl font-bold text-gray-900">{detail.title}</h2>
+      <div className="text-sm text-gray-400">
+        {detail.author} · {detail.date}
+      </div>
+      <p className="text-gray-700">{detail.content}</p>
     </div>
   )
 }
