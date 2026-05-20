@@ -1,12 +1,17 @@
 import type { JSX } from 'react'
-import { Link, NavLink, Outlet } from 'react-router'
+import { Link, NavLink, Outlet, useMatches } from 'react-router'
 
+import type { RouteHandle } from '@/libs/router'
 import { useRouterConfig } from '@/libs/router'
 import { useAuthReading } from '@/services/auth'
+
+import { SubHeader } from './sub-header'
 
 export function Layout(): JSX.Element {
   const { isAuthenticated, role } = useAuthReading()
   const { loginPath, logoutPath } = useRouterConfig()
+  const matches = useMatches()
+  const hasSubHeader = matches.some((m) => (m.handle as RouteHandle)?.hasSubHeader)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -59,6 +64,7 @@ export function Layout(): JSX.Element {
           </div>
         </div>
       </header>
+      {hasSubHeader && <SubHeader />}
       <main className="max-w-5xl mx-auto px-4">
         <Outlet />
       </main>

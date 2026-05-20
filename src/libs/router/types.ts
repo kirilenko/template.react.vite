@@ -6,9 +6,14 @@ export type RouteAccess =
   | 'public-only'
   | ((auth: unknown) => boolean | string)
 
-export interface AppRouteObject extends Omit<RouteObject, 'children'> {
+export interface RouteHandle {
+  hasSubHeader?: boolean
+}
+
+export interface AppRouteObject extends Omit<RouteObject, 'children' | 'handle'> {
   access?: RouteAccess
   children?: AppRouteObject[]
+  handle?: RouteHandle
   withSuspense?: boolean
 }
 
