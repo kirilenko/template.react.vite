@@ -1,5 +1,6 @@
 import type { JSX } from 'react'
 import { useState } from 'react'
+import { Outlet } from 'react-router'
 
 import { NewsFeed } from './news-feed'
 import { type NewsFilter, NewsFilters } from './news-filters'
@@ -15,6 +16,7 @@ export function News(): JSX.Element {
       <NewsSearch value={search} onChange={setSearch} />
       <NewsFilters active={filter} onChange={setFilter} />
       <NewsFeed search={search} filter={filter} />
+      <Outlet />
     </div>
   )
 }
