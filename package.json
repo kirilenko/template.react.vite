@@ -32,6 +32,7 @@
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.5.2",
+    "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.27.0",
     "eslint-config-k8": "^1.5.2",
     "eslint-import-resolver-typescript": "^4.4.4",
