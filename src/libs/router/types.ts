@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 import type { RouteObject } from 'react-router'
 
 export type RouteAccess =
@@ -7,7 +8,7 @@ export type RouteAccess =
   | ((auth: unknown) => boolean | string)
 
 export interface RouteHandle {
-  hasSubHeader?: boolean
+  SubHeader?: ComponentType
 }
 
 export interface AppRouteObject extends Omit<RouteObject, 'children' | 'handle'> {

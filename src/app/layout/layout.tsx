@@ -5,13 +5,14 @@ import type { RouteHandle } from '@/libs/router'
 import { useRouterConfig } from '@/libs/router'
 import { useAuthReading } from '@/services/auth'
 
-import { SubHeader } from './sub-header'
-
 export function Layout(): JSX.Element {
   const { isAuthenticated, role } = useAuthReading()
   const { loginPath, logoutPath } = useRouterConfig()
   const matches = useMatches()
-  const hasSubHeader = matches.some((m) => (m.handle as RouteHandle)?.hasSubHeader)
+  const RouteSubHeader = [...matches]
+    .reverse()
+    .map((m) => (m.handle as RouteHandle)?.SubHeader)
+    .find(Boolean)
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -64,7 +65,7 @@ export function Layout(): JSX.Element {
           </div>
         </div>
       </header>
-      {hasSubHeader && <SubHeader />}
+      {RouteSubHeader ? <RouteSubHeader /> : null}
       <main className="flex-1 flex flex-col">
         <Outlet />
       </main>
