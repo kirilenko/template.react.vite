@@ -1,3 +1,4 @@
+import { paths } from '@/config/paths'
 import { createAppRouter } from '@/libs/router'
 import { adminRouter } from '@/modules/admin'
 import { loginRouter, logoutRouter } from '@/modules/auth'
@@ -8,7 +9,6 @@ import { profileRouter } from '@/modules/profile'
 import { useAuthReading } from '@/services/auth'
 
 import { Layout } from './layout'
-import { paths } from './paths'
 
 export const appRouter = createAppRouter(
   [

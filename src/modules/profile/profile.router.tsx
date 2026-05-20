@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 
-import { paths } from '@/app/paths'
+import { paths } from '@/config/paths'
 import type { AppRouteObject } from '@/libs/router'
 import type { AuthState } from '@/services/auth'
 
