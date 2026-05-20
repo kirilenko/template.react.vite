@@ -21,7 +21,7 @@ export function NewsFeed({ search, filter }: NewsFeedProps): JSX.Element {
   return (
     <ul className="space-y-3">
       {filtered.map((item) => (
-        <NewsCard key={item.id} title={item.title} date={item.date} />
+        <NewsCard key={item.id} id={item.id} title={item.title} date={item.date} />
       ))}
     </ul>
   )
