@@ -1,1 +1,1 @@
-export { newsDetailRouter } from './news-detail.router'
+export { newsDetailRouter, newsPlaceholderRouter } from './news-detail.router'

@@ -1,11 +1,11 @@
 import { paths } from '@/config'
 import type { AppRouteObject } from '@/libs/router'
-import { newsDetailRouter } from '@/modules/news-detail'
+import { newsDetailRouter, newsPlaceholderRouter } from '@/modules/news-detail'
 
 import { News } from './news.page'
 
 export const newsRouter: AppRouteObject = {
-  children: [newsDetailRouter],
+  children: [newsPlaceholderRouter, newsDetailRouter],
   element: <News />,
   path: paths.news.slice(1),
 }

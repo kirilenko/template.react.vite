@@ -11,12 +11,16 @@ export function News(): JSX.Element {
   const [filter, setFilter] = useState<NewsFilter>('All')
 
   return (
-    <div className="max-w-xl mx-auto py-12 space-y-4">
-      <h1 className="text-2xl font-bold text-gray-900">News</h1>
-      <NewsSearch value={search} onChange={setSearch} />
-      <NewsFilters active={filter} onChange={setFilter} />
-      <NewsFeed search={search} filter={filter} />
-      <Outlet />
+    <div className="flex gap-8 py-12 max-w-5xl mx-auto min-h-[calc(100vh-3.5rem)]">
+      <aside className="w-80 shrink-0 space-y-4">
+        <h1 className="text-2xl font-bold text-gray-900">News</h1>
+        <NewsSearch value={search} onChange={setSearch} />
+        <NewsFilters active={filter} onChange={setFilter} />
+        <NewsFeed search={search} filter={filter} />
+      </aside>
+      <main className="flex-1 bg-gray-100 rounded-lg p-6">
+        <Outlet />
+      </main>
     </div>
   )
 }
