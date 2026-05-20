@@ -6,10 +6,10 @@ export type RouteAccess =
   | 'public-only'
   | ((auth: unknown) => boolean | string)
 
-export interface AppRouteObject extends Omit<RouteObject, 'children'> {
+export interface AppRouteObject extends Omit<RouteObject, 'children' | 'lazy'> {
   access?: RouteAccess
   children?: AppRouteObject[]
-  suspense?: boolean
+  lazy?: boolean
 }
 
 export interface RouterConfig {

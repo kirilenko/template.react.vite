@@ -7,15 +7,11 @@ import { RouterConfigContext } from './router-config.context'
 import type { AppRouteObject, RouterConfig } from './types'
 
 function applyGuards(routes: AppRouteObject[]): RouteObject[] {
-  return routes.map(({ access = 'public', children, suspense, ...route }) => {
+  return routes.map(({ access = 'public', children, lazy, ...route }) => {
     const processedChildren = children ? applyGuards(children) : undefined
 
     const element =
-      suspense && route.element ? (
-        <Suspense fallback={null}>{route.element}</Suspense>
-      ) : (
-        route.element
-      )
+      lazy && route.element ? <Suspense fallback={null}>{route.element}</Suspense> : route.element
 
     const base = (
       processedChildren ? { ...route, children: processedChildren, element } : { ...route, element }
