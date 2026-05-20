@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import type { RouteObject } from 'react-router'
 import { createBrowserRouter, Outlet } from 'react-router'
 
@@ -6,10 +7,18 @@ import { RouterConfigContext } from './router-config.context'
 import type { AppRouteObject, RouterConfig } from './types'
 
 function applyGuards(routes: AppRouteObject[]): RouteObject[] {
-  return routes.map(({ access = 'public', children, ...route }) => {
+  return routes.map(({ access = 'public', children, suspense, ...route }) => {
     const processedChildren = children ? applyGuards(children) : undefined
+
+    const element =
+      suspense !== undefined && route.element ? (
+        <Suspense fallback={suspense}>{route.element}</Suspense>
+      ) : (
+        route.element
+      )
+
     const base = (
-      processedChildren ? { ...route, children: processedChildren } : route
+      processedChildren ? { ...route, children: processedChildren, element } : { ...route, element }
     ) as RouteObject
 
     if (access === 'public') return base
