@@ -1,7 +1,9 @@
+import { lazy, Suspense } from 'react'
+
 import type { AppRouteObject } from '@/libs/router'
 import type { AuthState } from '@/services/auth'
 
-import { Profile } from './profile.page'
+const Profile = lazy(() => import('./profile.page').then((m) => ({ default: m.Profile })))
 
 export const profileRouter: AppRouteObject = {
   access: (auth) => {
@@ -9,6 +11,10 @@ export const profileRouter: AppRouteObject = {
     if (!isAuthenticated) return false
     return role === 'user' || '/'
   },
-  element: <Profile />,
+  element: (
+    <Suspense fallback={null}>
+      <Profile />
+    </Suspense>
+  ),
   path: 'profile',
 }

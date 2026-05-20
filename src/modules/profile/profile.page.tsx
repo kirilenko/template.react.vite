@@ -4,6 +4,7 @@ export function Profile(): JSX.Element {
   return (
     <div className="max-w-sm mx-auto py-12">
       <h1 className="text-2xl font-bold text-gray-900 mb-6">Profile</h1>
+      <p className="text-xs text-indigo-500 font-medium mb-4">Lazy loaded</p>
       <div className="bg-white border border-gray-200 rounded-lg p-6 flex items-center gap-4">
         <div className="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center text-xl font-semibold text-gray-500">
           U

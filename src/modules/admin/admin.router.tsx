@@ -1,7 +1,9 @@
+import { lazy, Suspense } from 'react'
+
 import type { AppRouteObject } from '@/libs/router'
 import type { AuthState } from '@/services/auth'
 
-import { AdminPage } from './admin.page'
+const AdminPage = lazy(() => import('./admin.page').then((m) => ({ default: m.AdminPage })))
 
 export const adminRouter: AppRouteObject = {
   access: (auth) => {
@@ -9,6 +11,10 @@ export const adminRouter: AppRouteObject = {
     if (!isAuthenticated) return false
     return role === 'admin' || '/'
   },
-  element: <AdminPage />,
+  element: (
+    <Suspense fallback={null}>
+      <AdminPage />
+    </Suspense>
+  ),
   path: 'admin',
 }

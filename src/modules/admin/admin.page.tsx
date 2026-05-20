@@ -4,6 +4,7 @@ export function AdminPage(): JSX.Element {
   return (
     <div className="py-10">
       <h1 className="text-2xl font-bold text-gray-900 mb-2">Admin</h1>
+      <p className="text-xs text-indigo-500 font-medium mb-2">Lazy loaded</p>
       <p className="text-gray-500 text-sm">Only admins can see this page.</p>
     </div>
   )
