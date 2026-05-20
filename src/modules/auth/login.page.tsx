@@ -24,11 +24,13 @@ export function LoginPage(): JSX.Element {
         <input
           type="text"
           placeholder="Username"
+          autoComplete="username"
           className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
         />
         <input
           type="password"
           placeholder="Password"
+          autoComplete="current-password"
           className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
         />
         <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer select-none">
