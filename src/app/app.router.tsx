@@ -1,4 +1,4 @@
-import { paths } from '@/config/paths'
+import { paths } from '@/config'
 import { createAppRouter } from '@/libs/router'
 import { adminRouter } from '@/modules/admin'
 import { loginRouter, logoutRouter } from '@/modules/auth'

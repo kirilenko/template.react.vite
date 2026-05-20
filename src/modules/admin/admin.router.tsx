@@ -1,6 +1,6 @@
 import { lazy } from 'react'
 
-import { paths } from '@/config/paths'
+import { paths } from '@/config'
 import type { AppRouteObject } from '@/libs/router'
 import type { AuthState } from '@/services/auth'
 
