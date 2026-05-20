@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 
+import { paths } from '@/app/paths'
 import type { AppRouteObject } from '@/libs/router'
 import type { AuthState } from '@/services/auth'
 
@@ -16,5 +17,5 @@ export const profileRouter: AppRouteObject = {
       <Profile />
     </Suspense>
   ),
-  path: 'profile',
+  path: paths.profile.slice(1),
 }

@@ -1,5 +1,6 @@
 import { lazy } from 'react'
 
+import { paths } from '@/app/paths'
 import type { AppRouteObject } from '@/libs/router'
 import type { AuthState } from '@/services/auth'
 
@@ -12,6 +13,6 @@ export const adminRouter: AppRouteObject = {
     return role === 'admin' || '/'
   },
   element: <AdminPage />,
-  path: 'admin',
+  path: paths.admin.slice(1),
   withSuspense: true,
 }

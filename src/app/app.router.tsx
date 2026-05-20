@@ -8,6 +8,7 @@ import { profileRouter } from '@/modules/profile'
 import { useAuthReading } from '@/services/auth'
 
 import { Layout } from './layout'
+import { paths } from './paths'
 
 export const appRouter = createAppRouter(
   [
@@ -26,5 +27,5 @@ export const appRouter = createAppRouter(
       path: '/',
     },
   ],
-  { useAuth: useAuthReading }
+  { loginPath: paths.login, logoutPath: paths.logout, useAuth: useAuthReading }
 )
