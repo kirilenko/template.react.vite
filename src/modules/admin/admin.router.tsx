@@ -12,6 +12,6 @@ export const adminRouter: AppRouteObject = {
     return role === 'admin' || '/'
   },
   element: <AdminPage />,
-  lazy: true,
   path: 'admin',
+  withSuspense: true,
 }
