@@ -2,7 +2,7 @@ import type { JSX } from 'react'
 
 export function Profile(): JSX.Element {
   return (
-    <div className="max-w-sm mx-auto py-12">
+    <div className="max-w-sm mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold text-gray-900 mb-6">Profile</h1>
       <p className="text-xs text-indigo-500 font-medium mb-4">Lazy loaded</p>
       <div className="bg-white border border-gray-200 rounded-lg p-6 flex items-center gap-4">

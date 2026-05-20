@@ -11,8 +11,8 @@ export function News(): JSX.Element {
   const [filter, setFilter] = useState<NewsFilter>('All')
 
   return (
-    <div className="flex gap-8 py-12 max-w-5xl mx-auto min-h-[calc(100vh-3.5rem)]">
-      <aside className="w-80 shrink-0 space-y-4">
+    <div className="flex gap-8 py-12 px-4 flex-1 w-full">
+      <aside className="w-80 flex-none space-y-4">
         <h1 className="text-2xl font-bold text-gray-900">News</h1>
         <NewsSearch value={search} onChange={setSearch} />
         <NewsFilters active={filter} onChange={setFilter} />
