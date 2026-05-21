@@ -50,5 +50,17 @@ jobs:
       - name: Test
         run: pnpm test
 
+      - name: Set build mode
+        id: mode
+        run: |
+          case "${{ github.ref_name }}" in
+            main) echo "mode=production" >> $GITHUB_OUTPUT ;;
+            stage) echo "mode=stage" >> $GITHUB_OUTPUT ;;
+            *) echo "mode=dev" >> $GITHUB_OUTPUT ;;
+          esac
+
+      # To inject secrets, add a step before Build:
+      # - run: echo "VITE_API_KEY=${{ secrets.API_KEY }}" >> .env
+
       - name: Build
-        run: pnpm build
+        run: pnpm build --mode ${{ steps.mode.outputs.mode }}
