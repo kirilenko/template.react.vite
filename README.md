@@ -87,6 +87,12 @@ src/
 │       └── news-search/
 │           ├── news-search.tsx
 │           └── index.ts
+├── config/                     # typed env config
+│   └── env.ts                  # declares all VITE_* vars via parseEnv
+├── libs/                       # framework-level utilities; no domain knowledge
+│   ├── env/                    # parseEnv — reads import.meta.env, coerces types, throws on missing required vars
+│   ├── error-boundary/         # class-based ErrorBoundary with fallback and onError callback
+│   └── router/                 # createAppRouter, RouteGuard, AppRouteObject types
 ├── services/                   # data layer
 │   └── news/
 │       ├── index.ts
@@ -103,6 +109,8 @@ src/
 - **Services are shared** — hooks and schemas in `services/` can be used by any module; hook filenames follow `use.{entity}.{operation}.ts`
 - **`.page.tsx`** — route entry point of a module; private, not exported from `index.ts`
 - **`.router.tsx`** — declares the module's `RouteObject`; the only routing-related export; composed in `app.router.tsx`
+- **`config/env.ts`** — single source of truth for all `VITE_*` vars; declare each var here via `parseEnv`, then import `env` from `@/config` anywhere in the app; add the matching variable to each `.env.*` file
+- **`libs/`** — framework utilities shared across all layers; they have no domain knowledge and never import from `modules/` or `services/`; `libs/router` extends React Router with typed access control, `libs/error-boundary` provides a class-based fallback boundary, `libs/env` provides `parseEnv`
 
 ## Conventions
 
