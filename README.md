@@ -103,8 +103,9 @@ src/
 ├── services/                   # data layer
 │   └── news/
 │       ├── index.ts
-│       ├── news.schema.ts      # data model (ready for valibot/zod parser)
-│       └── use.news.reading.ts # useNewsReading — name reflects the operation
+│       ├── news.mock-creator.ts  # generates news.local.json (gitignored); run via pnpm mock
+│       ├── news.schema.ts        # data model (ready for valibot/zod parser)
+│       └── use.news.reading.ts   # useNewsReading — name reflects the operation
 └── main.tsx                    # vite entry point
 ```
 
@@ -117,6 +118,7 @@ src/
 - **`.page.tsx`** — route entry point of a module; private, not exported from `index.ts`
 - **`.router.tsx`** — declares the module's `RouteObject`; the only routing-related export; composed in `app.router.tsx`
 - **`config/env.ts`** — single source of truth for all `VITE_*` vars; declare each var here via `parseEnv`, then import `env` from `@/config` anywhere in the app; add the matching variable to `.env.example`, `.env.test`, and local `.env`
+- **`*.mock-creator.ts`** — co-located with its service; generates a `*.local.json` file (gitignored) when `pnpm mock` runs; all `*.local.json` files found under `MOCK_CREATOR_PATHS` are merged into `db.json` (also gitignored) by `scripts/mock-collect.js`
 - **`config/paths.ts`** — all route path strings in one const object; always import from here, never hardcode strings in routers or `<Link>` components
 - **`access` on routes** — controls who can visit a route; omit for `'public'` (default, anyone); `'private'` redirects to `loginPath` if not authenticated; `'public-only'` redirects authenticated users away (e.g. the login page); a function `(auth) => boolean | string` encodes custom logic — return `true` to allow, `false` to redirect to `loginPath`, or a path string to redirect elsewhere
 - **`withSuspense: true`** — automatically wraps the route element in `<Suspense fallback={null}>`; use together with `lazy()` to enable code splitting without boilerplate

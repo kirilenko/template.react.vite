@@ -30,3 +30,7 @@ pnpm-debug.log*
 
 # Playwright
 .playwright-mcp/
+
+# Mock data (generated)
+*.local.json
+db.json
