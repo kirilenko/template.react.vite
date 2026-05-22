@@ -87,8 +87,10 @@ src/
 │       └── news-search/
 │           ├── news-search.tsx
 │           └── index.ts
-├── config/                     # typed env config
-│   └── env.ts                  # declares all VITE_* vars via parseEnv
+├── config/                     # app-wide constants
+│   ├── env.ts                  # declares all VITE_* vars via parseEnv
+│   ├── paths.ts                # all route path strings
+│   └── index.ts
 ├── libs/                       # framework-level utilities; no domain knowledge
 │   ├── env/                    # parseEnv — reads import.meta.env, coerces types, throws on missing required vars
 │   ├── error-boundary/         # class-based ErrorBoundary with fallback and onError callback
@@ -110,6 +112,10 @@ src/
 - **`.page.tsx`** — route entry point of a module; private, not exported from `index.ts`
 - **`.router.tsx`** — declares the module's `RouteObject`; the only routing-related export; composed in `app.router.tsx`
 - **`config/env.ts`** — single source of truth for all `VITE_*` vars; declare each var here via `parseEnv`, then import `env` from `@/config` anywhere in the app; add the matching variable to each `.env.*` file
+- **`config/paths.ts`** — all route path strings in one const object; always import from here, never hardcode strings in routers or `<Link>` components
+- **`access` on routes** — controls who can visit a route; omit for `'public'` (default, anyone); `'private'` redirects to `loginPath` if not authenticated; `'public-only'` redirects authenticated users away (e.g. the login page); a function `(auth) => boolean | string` encodes custom logic — return `true` to allow, `false` to redirect to `loginPath`, or a path string to redirect elsewhere
+- **`withSuspense: true`** — automatically wraps the route element in `<Suspense fallback={null}>`; use together with `lazy()` to enable code splitting without boilerplate
+- **`handle.SubHeader`** — pass a component to render a route-specific sub-header; the root layout reads it via `useMatches` and mounts it in the designated slot
 - **`libs/`** — framework utilities shared across all layers; they have no domain knowledge and never import from `modules/` or `services/`; `libs/router` extends React Router with typed access control, `libs/error-boundary` provides a class-based fallback boundary, `libs/env` provides `parseEnv`
 
 ## Conventions
