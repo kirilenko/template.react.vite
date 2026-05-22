@@ -31,5 +31,5 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     setState({ isAuthenticated: false, role: null })
   }, [])
 
-  return <AuthContext.Provider value={{ ...state, login, logout }}>{children}</AuthContext.Provider>
+  return <AuthContext value={{ ...state, login, logout }}>{children}</AuthContext>
 }
