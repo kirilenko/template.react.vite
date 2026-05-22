@@ -43,9 +43,9 @@ export function createAppRouter(routes: AppRouteObject[], config: RouterConfig =
     {
       children: applyGuards(routes),
       element: (
-        <RouterConfigContext.Provider value={resolved}>
+        <RouterConfigContext value={resolved}>
           <Outlet />
-        </RouterConfigContext.Provider>
+        </RouterConfigContext>
       ),
     },
   ])
