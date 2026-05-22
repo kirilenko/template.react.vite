@@ -13,6 +13,7 @@ React SPA template powered by Vite.
 - [Tailwind CSS 4](https://tailwindcss.com)
 - [ESLint 9](https://eslint.org) + [Prettier 3](https://prettier.io)
 - [Vitest 4](https://vitest.dev) + [Testing Library](https://testing-library.com)
+- [json-server](https://github.com/typicode/json-server) — mock REST API backed by `db.json`
 
 ## Setup
 
@@ -22,11 +23,13 @@ Requires [direnv](https://direnv.net) and [nvm](https://github.com/nvm-sh/nvm). 
 pnpm setup             # installs correct node + pnpm versions, runs pnpm install
 direnv allow           # enables auto-loading .nvmrc and corepack on directory entry
 scripts/sync-ports.sh  # generates .env.ports.local from ../../ports.yml
+cp .env.example .env   # create local env file (edit as needed)
 ```
 
 ## Commands
 
 ```bash
+pnpm mock     # mock API server (json-server, port from MOCK_PORT in .env.ports.local; Vite proxies /api to it)
 pnpm dev      # dev server
 pnpm build    # type-check + production build
 pnpm preview  # preview production build
@@ -45,6 +48,7 @@ To add this project to the registry, add an entry to `ports.yml`:
 ```yaml
 your-project-name:
   vite: 5183
+  mock: 3005
 ```
 
 Then run `scripts/sync-ports.sh`.
@@ -92,6 +96,7 @@ src/
 │   ├── paths.ts                # all route path strings
 │   └── index.ts
 ├── libs/                       # framework-level utilities; no domain knowledge
+│   ├── rest/                   # fetch wrapper — rest.get<T>(path) prepends VITE_REST_URL
 │   ├── env/                    # parseEnv — reads import.meta.env, coerces types, throws on missing required vars
 │   ├── error-boundary/         # class-based ErrorBoundary with fallback and onError callback
 │   └── router/                 # createAppRouter, RouteGuard, AppRouteObject types
@@ -111,7 +116,7 @@ src/
 - **Services are shared** — hooks and schemas in `services/` can be used by any module; hook filenames follow `use.{entity}.{operation}.ts`
 - **`.page.tsx`** — route entry point of a module; private, not exported from `index.ts`
 - **`.router.tsx`** — declares the module's `RouteObject`; the only routing-related export; composed in `app.router.tsx`
-- **`config/env.ts`** — single source of truth for all `VITE_*` vars; declare each var here via `parseEnv`, then import `env` from `@/config` anywhere in the app; add the matching variable to each `.env.*` file
+- **`config/env.ts`** — single source of truth for all `VITE_*` vars; declare each var here via `parseEnv`, then import `env` from `@/config` anywhere in the app; add the matching variable to `.env.example`, `.env.test`, and local `.env`
 - **`config/paths.ts`** — all route path strings in one const object; always import from here, never hardcode strings in routers or `<Link>` components
 - **`access` on routes** — controls who can visit a route; omit for `'public'` (default, anyone); `'private'` redirects to `loginPath` if not authenticated; `'public-only'` redirects authenticated users away (e.g. the login page); a function `(auth) => boolean | string` encodes custom logic — return `true` to allow, `false` to redirect to `loginPath`, or a path string to redirect elsewhere
 - **`withSuspense: true`** — automatically wraps the route element in `<Suspense fallback={null}>`; use together with `lazy()` to enable code splitting without boilerplate

@@ -9,6 +9,7 @@
   },
   "scripts": {
     "setup": "scripts/setup.sh",
+    "mock": "scripts/mock.sh",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
@@ -45,6 +46,7 @@
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "globals": "^17.6.0",
     "jsdom": "^29.1.1",
+    "json-server": "1.0.0-beta.15",
     "prettier": "^3.5.3",
     "tailwindcss": "^4.1.7",
     "typescript": "^5.8.3",

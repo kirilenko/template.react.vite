@@ -10,7 +10,9 @@ interface NewsFeedProps {
 }
 
 export function NewsFeed({ search, filter }: NewsFeedProps): JSX.Element {
-  const { items } = useNewsReading()
+  const { isLoading, items } = useNewsReading()
+
+  if (isLoading) return <p className="text-sm text-gray-400">Loading...</p>
 
   const filtered = items.filter(
     (item) =>

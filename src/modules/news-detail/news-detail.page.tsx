@@ -5,8 +5,9 @@ import { useNewsDetailReading } from '@/services/news'
 
 export function NewsDetail(): JSX.Element {
   const { id } = useParams()
-  const { detail } = useNewsDetailReading(Number(id))
+  const { detail, isLoading } = useNewsDetailReading(Number(id))
 
+  if (isLoading) return <p className="text-gray-400">Loading...</p>
   if (!detail) return <p className="text-gray-400">News not found.</p>
 
   return (

@@ -17,15 +17,23 @@ parse_port() {
 }
 
 PORT=$(parse_port "vite")
+MOCK_PORT=$(parse_port "mock")
 
 if [ -z "$PORT" ]; then
   echo "Error: could not parse port for '$PROJECT' from $PORTS_FILE" >&2
   exit 1
 fi
 
+if [ -z "$MOCK_PORT" ]; then
+  echo "Error: could not parse mock port for '$PROJECT' from $PORTS_FILE" >&2
+  exit 1
+fi
+
 cat > "$OUT_FILE" <<EOF
 PORT=$PORT
+MOCK_PORT=$MOCK_PORT
 EOF
 
 echo "Synced ports from $PORTS_FILE → $OUT_FILE"
 echo "  PORT=$PORT"
+echo "  MOCK_PORT=$MOCK_PORT"

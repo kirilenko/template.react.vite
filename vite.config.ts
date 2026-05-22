@@ -23,5 +23,11 @@ export default defineConfig({
   },
   server: {
     port: parseInt(portsEnv.PORT ?? process.env.PORT ?? '5173'),
+    proxy: {
+      '/api': {
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        target: `http://localhost:${portsEnv.MOCK_PORT ?? '3005'}`,
+      },
+    },
   },
 })
