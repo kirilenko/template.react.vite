@@ -4,7 +4,7 @@ import { useParams } from '@tanstack/react-router'
 import { useNewsDetailReading } from '@/services/news'
 
 export function NewsDetail(): JSX.Element {
-  const { id } = useParams({ from: '/news/$id' })
+  const { id } = useParams({ strict: false })
   const { detail, isLoading } = useNewsDetailReading(Number(id))
 
   if (isLoading) return <p className="text-gray-400">Loading...</p>

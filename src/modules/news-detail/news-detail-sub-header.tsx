@@ -1,10 +1,12 @@
 import type { JSX } from 'react'
-import { useParams } from '@tanstack/react-router'
+import { useRouterState } from '@tanstack/react-router'
 
 import { useNewsDetailReading } from '@/services/news'
 
 export function NewsDetailSubHeader(): JSX.Element {
-  const { id } = useParams({ from: '/news/$id', strict: false })
+  const id = useRouterState({
+    select: (s) => s.matches.findLast((m) => 'id' in m.params)?.params.id as string | undefined,
+  })
   const { detail } = useNewsDetailReading(Number(id))
 
   return (
