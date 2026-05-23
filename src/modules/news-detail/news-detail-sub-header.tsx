@@ -1,10 +1,10 @@
 import type { JSX } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from '@tanstack/react-router'
 
 import { useNewsDetailReading } from '@/services/news'
 
 export function NewsDetailSubHeader(): JSX.Element {
-  const { id } = useParams()
+  const { id } = useParams({ from: '/news/$id', strict: false })
   const { detail } = useNewsDetailReading(Number(id))
 
   return (

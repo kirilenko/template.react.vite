@@ -1,20 +1,19 @@
 import type { FormEvent, JSX } from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate } from '@tanstack/react-router'
 
-import { useRouterConfig } from '@/libs/router'
+import { paths } from '@/config'
 import { useAuthWriting } from '@/services/auth'
 
 export function LoginPage(): JSX.Element {
   const { login } = useAuthWriting()
   const navigate = useNavigate()
-  const { redirectAfterLogin } = useRouterConfig()
   const [isAdmin, setIsAdmin] = useState(false)
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     login(isAdmin ? 'admin' : 'user')
-    void navigate(redirectAfterLogin)
+    void navigate({ to: paths.home })
   }
 
   return (

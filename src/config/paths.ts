@@ -4,6 +4,6 @@ export const paths = {
   login: '/login',
   logout: '/logout',
   news: '/news',
-  newsDetail: '/news/:id',
+  newsDetail: '/news/$id',
   profile: '/profile',
 } as const

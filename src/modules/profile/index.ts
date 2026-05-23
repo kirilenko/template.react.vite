@@ -1,1 +1,1 @@
-export { profileRouter } from './profile.router'
+export { Profile } from './profile.page'

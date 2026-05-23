@@ -1,1 +1,2 @@
-export { newsDetailRouter, newsPlaceholderRouter } from './news-detail.router'
+export { NewsDetailSubHeader } from './news-detail-sub-header'
+export { NewsPlaceholder } from './news-placeholder'

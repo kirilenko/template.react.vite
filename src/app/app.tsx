@@ -1,17 +1,28 @@
 import type { JSX } from 'react'
-import { RouterProvider } from 'react-router'
+import { useEffect } from 'react'
+import { RouterProvider } from '@tanstack/react-router'
 
 import { ErrorBoundary } from '@/libs/error-boundary'
 import { ErrorFallback } from '@/modules/error'
-import { AuthProvider } from '@/services/auth'
+import { AuthProvider, useAuthReading } from '@/services/auth'
 
-import { appRouter } from './app.router'
+import { router } from './app.router'
+
+function AppRouter(): JSX.Element {
+  const auth = useAuthReading()
+
+  useEffect(() => {
+    router.invalidate()
+  }, [auth.isAuthenticated])
+
+  return <RouterProvider router={router} context={{ auth }} />
+}
 
 export function App(): JSX.Element {
   return (
     <ErrorBoundary fallback={<ErrorFallback />}>
       <AuthProvider>
-        <RouterProvider router={appRouter} />
+        <AppRouter />
       </AuthProvider>
     </ErrorBoundary>
   )

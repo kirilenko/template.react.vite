@@ -1,2 +1,2 @@
-export { loginRouter } from './login.router'
-export { logoutRouter } from './logout.router'
+export { LoginPage } from './login.page'
+export { LogoutPage } from './logout.page'

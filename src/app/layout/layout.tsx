@@ -1,17 +1,16 @@
 import type { JSX } from 'react'
-import { Link, NavLink, Outlet, useMatches } from 'react-router'
+import { Link, Outlet, useMatches } from '@tanstack/react-router'
 
-import type { RouteHandle } from '@/libs/router'
-import { useRouterConfig } from '@/libs/router'
+import { paths } from '@/config'
+import type { RouteStaticData } from '@/libs/router'
 import { useAuthReading } from '@/services/auth'
 
 export function Layout(): JSX.Element {
   const { isAuthenticated, role } = useAuthReading()
-  const { loginPath, logoutPath } = useRouterConfig()
   const matches = useMatches()
   const RouteSubHeader = [...matches]
     .reverse()
-    .map((m) => (m.handle as RouteHandle)?.SubHeader)
+    .map((m) => (m.staticData as RouteStaticData).SubHeader)
     .find(Boolean)
 
   return (
@@ -23,40 +22,36 @@ export function Layout(): JSX.Element {
             <nav className="flex gap-1">
               {(
                 [
-                  { label: 'Home', to: '/' },
-                  { label: 'News', to: '/news' },
-                  role === 'user' ? { label: 'Profile', to: '/profile' } : null,
-                  role === 'admin' ? { label: 'Admin', to: '/admin' } : null,
+                  { label: 'Home', to: paths.home },
+                  { label: 'News', to: paths.news },
+                  role === 'user' ? { label: 'Profile', to: paths.profile } : null,
+                  role === 'admin' ? { label: 'Admin', to: paths.admin } : null,
                 ] as const
               )
                 .filter((x): x is { label: string; to: string } => x !== null)
                 .map(({ label, to }) => (
-                  <NavLink
+                  <Link
                     key={to}
                     to={to}
-                    end
-                    className={({ isActive }) =>
-                      `px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                        isActive
-                          ? 'bg-gray-100 text-gray-900'
-                          : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
-                      }`
-                    }
+                    activeOptions={{ exact: true }}
+                    activeProps={{ className: 'bg-gray-100 text-gray-900' }}
+                    inactiveProps={{ className: 'text-gray-500 hover:text-gray-900 hover:bg-gray-50' }}
+                    className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
                   >
                     {label}
-                  </NavLink>
+                  </Link>
                 ))}
             </nav>
             {isAuthenticated ? (
               <Link
-                to={logoutPath}
+                to={paths.logout}
                 className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
               >
                 Sign out
               </Link>
             ) : (
               <Link
-                to={loginPath}
+                to={paths.login}
                 className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
               >
                 Sign in
