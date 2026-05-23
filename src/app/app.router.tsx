@@ -7,16 +7,16 @@ import {
   redirect,
 } from '@tanstack/react-router'
 
-import { paths } from '@/config'
 import { SubHeader } from '@/app/layout/sub-header'
+import { paths } from '@/config'
+import type { RouterContext } from '@/libs/router'
+import { LoginPage } from '@/modules/auth/login.page'
+import { LogoutPage } from '@/modules/auth/logout.page'
 import { ErrorPage } from '@/modules/error/error.page'
 import { NotFoundPage } from '@/modules/error/not-found.page'
 import { Home } from '@/modules/home/home.page'
-import { LoginPage } from '@/modules/auth/login.page'
-import { LogoutPage } from '@/modules/auth/logout.page'
 import { News } from '@/modules/news/news.page'
 import { NewsDetailSubHeader } from '@/modules/news-detail/news-detail-sub-header'
-import type { RouterContext } from '@/libs/router'
 
 import { Layout } from './layout'
 
@@ -47,75 +47,90 @@ const rootRoute = createRootRouteWithContext<RouterContext>()({
 })
 
 const layoutRoute = createRoute({
+  component: Layout,
   getParentRoute: () => rootRoute,
   id: '_layout',
-  component: Layout,
 })
 
 const privateRoute = createRoute({
+  beforeLoad: ({ context, location }) => {
+    if (!context.auth.isAuthenticated) {
+      const isAuthFlow = location.pathname === paths.logout
+      throw redirect({
+        search: isAuthFlow ? { redirect: undefined } : { redirect: location.href },
+        to: paths.login,
+      })
+    }
+  },
   getParentRoute: () => layoutRoute,
   id: '_private',
-  beforeLoad: ({ context }) => {
-    if (!context.auth.isAuthenticated) throw redirect({ to: paths.login })
-  },
 })
 
 const publicOnlyRoute = createRoute({
+  beforeLoad: ({ context, location }) => {
+    if (context.auth.isAuthenticated) {
+      const to =
+        typeof (location.search as Record<string, unknown>).redirect === 'string'
+          ? (location.search as Record<string, string>).redirect
+          : paths.home
+      throw redirect({ to })
+    }
+  },
   getParentRoute: () => layoutRoute,
   id: '_public-only',
-  beforeLoad: ({ context }) => {
-    if (context.auth.isAuthenticated) throw redirect({ to: paths.home })
-  },
 })
 
 const homeRoute = createRoute({
+  component: Home,
   getParentRoute: () => layoutRoute,
   path: '/',
-  component: Home,
 })
 
 const newsRoute = createRoute({
+  component: News,
   getParentRoute: () => layoutRoute,
   path: 'news',
-  component: News,
   staticData: { SubHeader },
 })
 
 const newsDetailRoute = createRoute({
+  component: NewsDetail,
   getParentRoute: () => newsRoute,
   path: '$id',
-  component: NewsDetail,
   staticData: { SubHeader: NewsDetailSubHeader },
 })
 
 const loginRoute = createRoute({
+  component: LoginPage,
   getParentRoute: () => publicOnlyRoute,
   path: 'login',
-  component: LoginPage,
+  validateSearch: (search: Record<string, unknown>) => ({
+    redirect: typeof search.redirect === 'string' ? search.redirect : undefined,
+  }),
 })
 
 const logoutRoute = createRoute({
+  component: LogoutPage,
   getParentRoute: () => privateRoute,
   path: 'logout',
-  component: LogoutPage,
 })
 
 const profileRoute = createRoute({
-  getParentRoute: () => privateRoute,
-  path: 'profile',
-  component: Profile,
   beforeLoad: ({ context }) => {
     if (context.auth.role !== 'user') throw redirect({ to: paths.home })
   },
+  component: Profile,
+  getParentRoute: () => privateRoute,
+  path: 'profile',
 })
 
 const adminRoute = createRoute({
-  getParentRoute: () => privateRoute,
-  path: 'admin',
-  component: AdminPage,
   beforeLoad: ({ context }) => {
     if (context.auth.role !== 'admin') throw redirect({ to: paths.home })
   },
+  component: AdminPage,
+  getParentRoute: () => privateRoute,
+  path: 'admin',
 })
 
 const routeTree = rootRoute.addChildren([
@@ -128,8 +143,8 @@ const routeTree = rootRoute.addChildren([
 ])
 
 export const router = createRouter({
-  routeTree,
   context: {
     auth: { isAuthenticated: false, role: null },
   },
+  routeTree,
 })

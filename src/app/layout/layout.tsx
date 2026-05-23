@@ -20,27 +20,25 @@ export function Layout(): JSX.Element {
           <span className="font-semibold text-gray-900">MyApp</span>
           <div className="flex items-center gap-4">
             <nav className="flex gap-1">
-              {(
-                [
-                  { label: 'Home', to: paths.home },
-                  { label: 'News', to: paths.news },
-                  role === 'user' ? { label: 'Profile', to: paths.profile } : null,
-                  role === 'admin' ? { label: 'Admin', to: paths.admin } : null,
-                ] as const
-              )
-                .filter((x): x is { label: string; to: string } => x !== null)
-                .map(({ label, to }) => (
-                  <Link
-                    key={to}
-                    to={to}
-                    activeOptions={{ exact: true }}
-                    activeProps={{ className: 'bg-gray-100 text-gray-900' }}
-                    inactiveProps={{ className: 'text-gray-500 hover:text-gray-900 hover:bg-gray-50' }}
-                    className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
-                  >
-                    {label}
-                  </Link>
-                ))}
+              {[
+                { label: 'Home', to: paths.home },
+                { label: 'News', to: paths.news },
+                ...(role === 'user' ? [{ label: 'Profile', to: paths.profile }] : []),
+                ...(role === 'admin' ? [{ label: 'Admin', to: paths.admin }] : []),
+              ].map(({ label, to }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  activeOptions={{ exact: true }}
+                  activeProps={{ className: 'bg-gray-100 text-gray-900' }}
+                  inactiveProps={{
+                    className: 'text-gray-500 hover:text-gray-900 hover:bg-gray-50',
+                  }}
+                  className="px-3 py-1.5 rounded text-sm font-medium transition-colors"
+                >
+                  {label}
+                </Link>
+              ))}
             </nav>
             {isAuthenticated ? (
               <Link
@@ -52,6 +50,7 @@ export function Layout(): JSX.Element {
             ) : (
               <Link
                 to={paths.login}
+                search={{ redirect: undefined }}
                 className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
               >
                 Sign in

@@ -5,7 +5,10 @@ import { useNewsDetailReading } from '@/services/news'
 
 export function NewsDetailSubHeader(): JSX.Element {
   const id = useRouterState({
-    select: (s) => s.matches.findLast((m) => 'id' in m.params)?.params.id as string | undefined,
+    select: (s) =>
+      [...s.matches]
+        .reverse()
+        .find((m): m is typeof m & { params: { id: string } } => 'id' in m.params)?.params.id,
   })
   const { detail } = useNewsDetailReading(Number(id))
 

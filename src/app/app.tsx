@@ -12,7 +12,7 @@ function AppRouter(): JSX.Element {
   const auth = useAuthReading()
 
   useEffect(() => {
-    router.invalidate()
+    void router.invalidate()
   }, [auth.isAuthenticated])
 
   return <RouterProvider router={router} context={{ auth }} />
