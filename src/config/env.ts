@@ -4,6 +4,9 @@ const env = parseEnv({
   VITE_REACT_SCAN: {
     type: 'boolean',
   },
+  VITE_RENDER_LOG: {
+    type: 'boolean',
+  },
   VITE_REST_URL: {
     required: true,
     type: 'string',

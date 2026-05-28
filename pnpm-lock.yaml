@@ -89,6 +89,9 @@ importers:
       prettier:
         specifier: ^3.5.3
         version: 3.8.3
+      react-render-log:
+        specifier: ^1.2.0
+        version: 1.2.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react-scan:
         specifier: ^0.5.6
         version: 0.5.6(esbuild@0.28.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(rollup@4.60.4)
@@ -4024,6 +4027,15 @@ packages:
       }
     engines: { node: '>=0.10.0' }
 
+  react-render-log@1.2.0:
+    resolution:
+      {
+        integrity: sha512-00q2qF00NIfEICPXyaj3oe49kIEXh6vGiuMPzghthkkPFuoq4Y8UE6Incxn3ysHbse5bUIvegx5cwI31a/+tGA==,
+      }
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
+
   react-scan@0.5.6:
     resolution:
       {
@@ -7219,6 +7231,11 @@ snapshots:
   react-is@17.0.2: {}
 
   react-refresh@0.17.0: {}
+
+  react-render-log@1.2.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+    dependencies:
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
 
   react-scan@0.5.6(esbuild@0.28.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(rollup@4.60.4):
     dependencies:
