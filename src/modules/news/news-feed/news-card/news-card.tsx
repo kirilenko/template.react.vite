@@ -1,15 +1,17 @@
 import type { JSX } from 'react'
+import type { PropsWithRenderLog } from 'react-render-log'
+import { withRenderLog } from 'react-render-log'
 import { Link } from '@tanstack/react-router'
 
 import { paths } from '@/config'
 
-interface NewsCardProps {
+type NewsCardProps = PropsWithRenderLog<{
   date: string
   id: number
   title: string
-}
+}>
 
-export function NewsCard({ date, id, title }: NewsCardProps): JSX.Element {
+function NewsCardBase({ date, id, title }: NewsCardProps): JSX.Element {
   return (
     <li>
       <Link
@@ -25,3 +27,5 @@ export function NewsCard({ date, id, title }: NewsCardProps): JSX.Element {
     </li>
   )
 }
+
+export const NewsCard = withRenderLog(NewsCardBase)

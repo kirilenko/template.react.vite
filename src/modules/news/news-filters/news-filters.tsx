@@ -1,4 +1,5 @@
 import type { JSX } from 'react'
+import { useRenderLog } from 'react-render-log'
 
 export const FILTERS = ['All', 'Tech', 'Design', 'Business'] as const
 
@@ -10,6 +11,7 @@ interface NewsFiltersProps {
 }
 
 export function NewsFilters({ active, onChange }: NewsFiltersProps): JSX.Element {
+  useRenderLog()('NewsFilters')()
   return (
     <div className="flex gap-2">
       {FILTERS.map((filter) => (

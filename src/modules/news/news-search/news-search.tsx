@@ -1,4 +1,5 @@
 import type { JSX } from 'react'
+import { useRenderLog } from 'react-render-log'
 
 interface NewsSearchProps {
   onChange: (value: string) => void
@@ -6,6 +7,7 @@ interface NewsSearchProps {
 }
 
 export function NewsSearch({ value, onChange }: NewsSearchProps): JSX.Element {
+  useRenderLog()('NewsSearch')()
   return (
     <input
       type="search"
