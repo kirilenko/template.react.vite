@@ -2,14 +2,14 @@
 
 [![CI](https://github.com/kirilenko/template.react.vite/actions/workflows/ci.yml/badge.svg)](https://github.com/kirilenko/template.react.vite/actions/workflows/ci.yml)
 
-React SPA template powered by Vite.
+Production-ready React SPA starter with TypeScript, TanStack Router, Tailwind CSS 4, and a modular feature-based architecture. Ships with role-based access control, a json-server-backed mock REST API, and a full lint/test/format toolchain out of the box.
 
 ## Stack
 
 - [React 19](https://react.dev) + [React Compiler](https://react.dev/learn/react-compiler)
 - [TypeScript 5](https://www.typescriptlang.org)
 - [Vite 6](https://vite.dev)
-- [React Router 7](https://reactrouter.com)
+- [TanStack Router 1](https://tanstack.com/router)
 - [Tailwind CSS 4](https://tailwindcss.com)
 - [ESLint 9](https://eslint.org) + [Prettier 3](https://prettier.io)
 - [Vitest 4](https://vitest.dev) + [Testing Library](https://testing-library.com)
@@ -68,17 +68,19 @@ For a public production site, remove both:
 src/
 ├── app/                        # app entry point
 │   ├── app.tsx                 # renders RouterProvider
-│   ├── app.router.tsx          # composes module routers into createBrowserRouter
+│   ├── app.router.tsx          # defines all routes using createRouter; access control via beforeLoad
 │   ├── app.test.tsx
 │   ├── index.ts
 │   └── layout/                 # root layout; add header/, sidebar/ here as needed
 │       ├── layout.tsx
-│       └── index.ts
+│       ├── index.ts
+│       └── sub-header/         # mounts route-specific sub-header via staticData.SubHeader
+│           ├── sub-header.tsx
+│           └── index.ts
 ├── modules/                    # feature modules
 │   └── news/                   # one folder per feature
 │       ├── index.ts            # public API — only what's listed here is visible outside
 │       ├── news.page.tsx       # route entry point; assembles sub-components (private)
-│       ├── news.router.tsx     # RouteObject for this module; exported via index.ts
 │       ├── news-feed/          # folder structure mirrors component tree on screen
 │       │   ├── news-feed.tsx
 │       │   ├── index.ts
@@ -99,7 +101,7 @@ src/
 │   ├── rest/                   # fetch wrapper — rest.get<T>(path) prepends VITE_REST_URL
 │   ├── env/                    # parseEnv — reads import.meta.env, coerces types, throws on missing required vars
 │   ├── error-boundary/         # class-based ErrorBoundary with fallback and onError callback
-│   └── router/                 # createAppRouter, RouteGuard, AppRouteObject types
+│   └── router/                 # RouterContext and RouteStaticData types for TanStack Router
 ├── services/                   # data layer
 │   └── news/
 │       ├── index.ts
@@ -116,14 +118,13 @@ src/
 - **Types co-located** — types live next to the component that owns them; parents may import from children, siblings don't import from each other
 - **Services are shared** — hooks and schemas in `services/` can be used by any module; hook filenames follow `use.{entity}.{operation}.ts`
 - **`.page.tsx`** — route entry point of a module; private, not exported from `index.ts`
-- **`.router.tsx`** — declares the module's `RouteObject`; the only routing-related export; composed in `app.router.tsx`
 - **`config/env.ts`** — single source of truth for all `VITE_*` vars; declare each var here via `parseEnv`, then import `env` from `@/config` anywhere in the app; add the matching variable to `.env.example`, `.env.test`, and local `.env`
 - **`*.mock-creator.ts`** — co-located with its service; generates a `*.local.json` file (gitignored) when `pnpm mock` runs; all `*.local.json` files found under `MOCK_CREATOR_PATHS` are merged into `db.json` (also gitignored) by `scripts/mock-collect.js`
 - **`config/paths.ts`** — all route path strings in one const object; always import from here, never hardcode strings in routers or `<Link>` components
-- **`access` on routes** — controls who can visit a route; omit for `'public'` (default, anyone); `'private'` redirects to `loginPath` if not authenticated; `'public-only'` redirects authenticated users away (e.g. the login page); a function `(auth) => boolean | string` encodes custom logic — return `true` to allow, `false` to redirect to `loginPath`, or a path string to redirect elsewhere
-- **`withSuspense: true`** — automatically wraps the route element in `<Suspense fallback={null}>`; use together with `lazy()` to enable code splitting without boilerplate
-- **`handle.SubHeader`** — pass a component to render a route-specific sub-header; the root layout reads it via `useMatches` and mounts it in the designated slot
-- **`libs/`** — framework utilities shared across all layers; they have no domain knowledge and never import from `modules/` or `services/`; `libs/router` extends React Router with typed access control, `libs/error-boundary` provides a class-based fallback boundary, `libs/env` provides `parseEnv`
+- **`beforeLoad` on routes** — access control lives in `beforeLoad`; throw `redirect(...)` to guard a route; private routes are grouped under `_private`, public-only under `_public-only`, both defined in `app.router.tsx`
+- **`lazyRouteComponent`** — use `lazyRouteComponent(() => import(...))` for code-split routes; TanStack Router handles suspense automatically, no `<Suspense>` wrapper needed
+- **`staticData.SubHeader`** — pass a component via `staticData: { SubHeader }` on a route to render a route-specific sub-header; the root layout reads it from the current match and mounts it in the designated slot
+- **`libs/`** — framework utilities shared across all layers; they have no domain knowledge and never import from `modules/` or `services/`; `libs/router` provides `RouterContext` and `RouteStaticData` types for TanStack Router, `libs/error-boundary` provides a class-based fallback boundary, `libs/env` provides `parseEnv`
 
 ## Conventions
 
